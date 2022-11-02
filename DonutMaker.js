@@ -7,20 +7,20 @@ document.getElementById("alert").addEventListener("click", some_action);
 
 let donuts = 0;
 var donutCount = document.getElementById("counter");
-document.getElementById("alert").addEventListener("click", iterate);
+document.getElementById("alert").addEventListener("click", makeDonut);
 
-function iterate() {
+function makeDonut() {
   donuts += 1;
   console.log(donuts)
   donutCount.innerHTML = donuts
 }
 
-// purchase autoclickers
+// purchase autoclickers (but how do I increase cost by 10% with each purchase instead of manually calculating each time)
 let autoClicker = 0;
 var autoClickerCount = document.getElementById("autoClickerCounter");
-document.getElementById("autoClick").addEventListener("click", iterate2);
+document.getElementById("autoClick").addEventListener("click", buyAutoClicker);
 
-function iterate2() {
+function buyAutoClicker() {
   if (autoClicker == 2 && donuts >= 121) {
     autoClicker +=1;
     donuts -= 121;
@@ -28,6 +28,7 @@ function iterate2() {
   if (autoClicker == 1 && donuts >= 110) {
     autoClicker += 1;
     donuts -= 110;
+
   } if (donuts >= 100) {
     autoClicker += 1;
     donuts -= 100;
@@ -38,7 +39,40 @@ function iterate2() {
   donutCount.innerHTML = donuts; 
 }
 
+// utilize auto clickers
 
+setInterval(autoClickedDonuts, 1000);
+
+function autoClickedDonuts() {
+  donuts += autoClicker
+  donutCount.innerHTML = donuts;
+}
+
+
+// purchase donut multiplier
+
+let donutMultiplier = 0;
+var donutMultiplierCount = document.getElementById("donutMultiplierCost");
+document.getElementById("donutMultiply").addEventListener("click", buyDonutMultiplier);
+document.getElementById("alert").addEventListener("click", donutMultiplication);
+
+function cost() {
+  if (donutMultiplier > 0) {
+    donutMultiplierCount = 10
+  }
+}
+
+function buyDonutMultiplier() {
+  if (donuts >= 10 && donutMultiplier <= 0) {
+    donutMultiplierCount = 10;
+    donuts -= 10;
+    donutMultiplier +=1;
+  }
+}
+
+function donutMultiplication() {
+  Math.pow(1.2, donutMultiplier)
+}
 
 
 
