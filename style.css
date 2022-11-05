@@ -53,6 +53,10 @@ li.dropdown {
     display: block;
 }
 
+p {
+    font-size: small;
+}
+
 img {
     border-radius: 50%;
 }
@@ -62,8 +66,12 @@ button {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.container {
+    text-align: left;
+    font-size: medium;
+}
 
 body {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background-image: url(/images/sprinkles.jpeg);
+    background-image: url('/images/sprinkles.jpeg');
     text-align: center;}
