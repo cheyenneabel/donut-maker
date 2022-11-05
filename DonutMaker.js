@@ -5,7 +5,11 @@ const some_action = () => {
 }
 document.getElementById("alert").addEventListener("click", some_action);
 
+
 let donuts = 0;
+const container = (document.querySelector('.container').innerText =
+  'mmmmmmmmm doughnuts.... ahhhhhhh!') ;
+
 var donutCount = document.getElementById("counter");
 document.getElementById("alert").addEventListener("click", makeDonut);
 
@@ -15,31 +19,24 @@ function makeDonut() {
   donutCount.innerHTML = donuts
 }
 
-// purchase autoclickers (but how do I increase cost by 10% with each purchase instead of manually calculating each time)
+// autoclicker functions
 let autoClicker = 0;
-var autoClickerCount = document.getElementById("autoClickerCounter");
-document.getElementById("autoClick").addEventListener("click", buyAutoClicker);
 
-function buyAutoClicker() {
-  if (autoClicker == 2 && donuts >= 121) {
-    autoClicker +=1;
-    donuts -= 121;
-  }
-  if (autoClicker == 1 && donuts >= 110) {
-    autoClicker += 1;
-    donuts -= 110;
+document.getElementById("autoClick").addEventListener("click", activateAutoClicker);
 
-  } if (donuts >= 100) {
-    autoClicker += 1;
+
+function activateAutoClicker() {
+  if (autoClicker < 1 && donuts >= 100) {
     donuts -= 100;
-  } else 
-
+    autoClicker ++;
+  }
   console.log(autoClicker, donuts)
-  autoClickerCount.innerHTML = autoClicker;
+
   donutCount.innerHTML = donuts; 
+
 }
 
-// utilize auto clickers
+
 
 setInterval(autoClickedDonuts, 1000);
 
@@ -56,19 +53,18 @@ var donutMultiplierCount = document.getElementById("donutMultiplierCost");
 document.getElementById("donutMultiply").addEventListener("click", buyDonutMultiplier);
 document.getElementById("alert").addEventListener("click", donutMultiplication);
 
-function cost() {
+function buyDonutMultiplier() {
   if (donutMultiplier > 0) {
     donutMultiplierCount = 10
   }
 }
 
-function buyDonutMultiplier() {
-  if (donuts >= 10 && donutMultiplier <= 0) {
-    donutMultiplierCount = 10;
-    donuts -= 10;
-    donutMultiplier +=1;
-  }
-}
+//function buyDonutMultiplier() {
+ // if (donuts >= 10 && donutMultiplier <= 0) {
+   // donutMultiplierCount = 10;
+    //donuts -= 10;
+    //donutMultiplier +=1;
+  
 
 function donutMultiplication() {
   Math.pow(1.2, donutMultiplier)
@@ -77,10 +73,6 @@ function donutMultiplication() {
 
 
 
-
-
-
-// define donut, autoclicker, and donutmultiplier
 
 /*const donut = {donutCount : 0}; 
 const autoClicker = {autoClickerCount : 0};
