@@ -23,7 +23,7 @@ let donutCount = document.getElementById("counter");
 document.getElementById("alert").addEventListener("click", makeDonut);
 
 let refreshDonutCount = function() {
-donutCount.innerHTML = donuts;
+donutCount.innerHTML = donuts.toFixed(1);
 }
 
 function makeDonut() {
@@ -36,7 +36,6 @@ function makeDonut() {
   refreshDonutCount()
 }
 
-// autoclicker functions
 let autoClicker = 0;
 let oldCost = 100;
 
@@ -49,7 +48,7 @@ clickerCount.innerHTML = autoClicker;
 function updateAutoClickInfo() {
   refreshDonutCount();  
   clickerCount.innerHTML = autoClicker;
-  clickerCost.innerHTML = oldCost;
+  clickerCost.innerHTML = oldCost.toFixed(1);
 }
 
 function activateAutoClicker() {
@@ -73,8 +72,6 @@ function autoClickedDonuts() {
   refreshDonutCount()
 }
 
-//donut multiplier
-
 let donutMultiplier = 0;
 let donutMultiplierCost = 10;
 
@@ -86,7 +83,7 @@ multiplierCost.innerHTML = donutMultiplierCost;
 
 function updateMultiplierInfo() {
   donutMultiplierCount.innerHTML = donutMultiplier;
-  multiplierCost.innerHTML = donutMultiplierCost;
+  multiplierCost.innerHTML = donutMultiplierCost.toFixed(1);
   refreshDonutCount()
 }
 
@@ -103,6 +100,3 @@ function buyDonutMultiplier() {
   refreshDonutCount()
   console.log(donuts, autoClicker, donutMultiplier);
 }
-
-
-
