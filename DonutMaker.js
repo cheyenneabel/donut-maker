@@ -5,140 +5,104 @@ const some_action = () => {
 }
 document.getElementById("alert").addEventListener("click", some_action);
 
+document.getElementById("reset").addEventListener("click", reset);
+
+function reset() {
+  donuts = 0;
+  autoClicker = 0;
+  donutMultiplier = 0;
+  oldCost = 100;
+  donutMultiplierCost = 10;
+  updateAutoClickInfo()
+  updateMultiplierInfo()
+}
 
 let donuts = 0;
 
-var donutCount = document.getElementById("counter");
+let donutCount = document.getElementById("counter");
 document.getElementById("alert").addEventListener("click", makeDonut);
+
+let refreshDonutCount = function() {
 donutCount.innerHTML = donuts;
+}
 
 function makeDonut() {
-  donuts += 1;
+  if(donutMultiplier > 0) {
+  donuts += Math.pow(1.2, donutMultiplier)
+  } else if(donutMultiplier == 0) {
+    donuts += 1;
+  }
   console.log(donuts)
-  donutCount.innerHTML = donuts;
+  refreshDonutCount()
 }
 
 // autoclicker functions
 let autoClicker = 0;
 let oldCost = 100;
-let newCost = oldCost + (oldCost * .1)
 
 document.getElementById("autoClick").addEventListener("click", activateAutoClicker);
-var clickerCount = document.getElementById("autoClickerCount");
-var clickerCost = document.getElementById("autoClickerCost");
-clickerCount.innerHTML = autoClicker;
+let clickerCount = document.getElementById("autoClickerCount");
+let clickerCost = document.getElementById("autoClickerCost");
 clickerCost.innerHTML = oldCost;
+clickerCount.innerHTML = autoClicker;
 
-
-function activateAutoClicker() {
-  if (autoClicker == 0 && donuts >= 100)  {
-    donuts -= oldCost;
-  } 
-  if (autoClicker == 1 && donuts >= newCost) {
-    donuts -= newCost;
-  }
-  if(autoClicker >= 2 && donuts >= newCost) {
-    donuts -= newCost;
-  }
-
-  autoClicker += 1;
-  console.log(autoClicker, donuts)
-  donutCount.innerHTML = donuts; 
+function updateAutoClickInfo() {
+  refreshDonutCount();  
+  clickerCount.innerHTML = autoClicker;
+  clickerCost.innerHTML = oldCost;
 }
 
-
+function activateAutoClicker() {
+  if (donuts >= oldCost) {
+    donuts -= oldCost;
+    autoClicker +=1;
+    oldCost = Math.floor(oldCost * 1.1);
+  } else {
+    console.log("you don't have enough donuts!");
+  }
+  console.log(autoClicker, donuts)
+  updateAutoClickInfo()
+}
 
 setInterval(autoClickedDonuts, 1000);
 
 function autoClickedDonuts() {
-  donuts += autoClicker
-  donutCount.innerHTML = donuts;
+  if(autoClicker > 0) {
+  donuts += autoClicker + Math.pow(1.2, donutMultiplier);
+  } 
+  refreshDonutCount()
 }
 
-
-// purchase donut multiplier
+//donut multiplier
 
 let donutMultiplier = 0;
-var donutMultiplierCount = document.getElementById("donutMultiplierCost");
+let donutMultiplierCost = 10;
+
 document.getElementById("donutMultiply").addEventListener("click", buyDonutMultiplier);
-document.getElementById("alert").addEventListener("click", donutMultiplication);
+let donutMultiplierCount = document.getElementById("multiplier");
+let multiplierCost = document.getElementById("multiplierCost");
+donutMultiplierCount.innerHTML = donutMultiplier;
+multiplierCost.innerHTML = donutMultiplierCost;
+
+function updateMultiplierInfo() {
+  donutMultiplierCount.innerHTML = donutMultiplier;
+  multiplierCost.innerHTML = donutMultiplierCost;
+  refreshDonutCount()
+}
 
 function buyDonutMultiplier() {
-  if (donutMultiplier > 0) {
-    donuts -=10;
+  if (donuts >= donutMultiplierCost) {
+    donuts -= donutMultiplierCost;
+    donutMultiplier += 1;
+    donutMultiplierCost = donutMultiplierCost * 1.1;
+    updateMultiplierInfo()
   }
-  donutMultiplier++;
-  donutCount.innerHTML = donuts;
-}
-
-//function buyDonutMultiplier() {
- // if (donuts >= 10 && donutMultiplier <= 0) {
-   // donutMultiplierCount = 10;
-    //donuts -= 10;
-    //donutMultiplier +=1;
-  
-
-function donutMultiplication() {
-  Math.pow(1.2, donutMultiplier)
+  else {
+    console.log("you don't have enough donuts!");
+  }
+  refreshDonutCount()
+  console.log(donuts, autoClicker, donutMultiplier);
 }
 
 
 
-
-
-/*const donut = {donutCount : 0}; 
-const autoClicker = {autoClickerCount : 0};
-const donutMultiplier = {donutMultiplierCount : 0};
-const container = (document.querySelector('.container').innerText =
-  'mmmmmmmmm doughnuts.... ahhhhhhh!') ;
-
-// create getters and setters for objects
-
-Object.defineProperty(donut, "stats", {
-  get : function () {this.donutCount = donut.donutCount;}
-});
-
-Object.defineProperty(donut, "reset", {
-  get : function () {this.donutCount = 0;}
-});
-Object.defineProperty(donut, "increment", {
-  get : function () {this.donutCount++;}
-});
-Object.defineProperty(donut, "add", {
-  set : function (value) {this.donutCount += value;}
-});
-Object.defineProperty(donut, "subtract", {
-  set: function (value) {this.donutCount -= value;}
-});
-
-
-Object.defineProperty(autoClicker, "reset", {
-  get : function () {this.autoClickerCount = 0;}
-});
-Object.defineProperty(autoClicker, "increment", {
-  get : function () {this.autoClickerCount++;}
-});
-Object.defineProperty(autoClicker, "add", {
-  set : function (value) {this.autoClickerCount += value;}
-});
-Object.defineProperty(autoClicker, "subtract", {
-  set: function (value) {this.autoClickerCount -= value;}
-});
-
-
-Object.defineProperty(donutMultiplier, "reset", {
-  get : function () {this.donutMultiplierCount = 0;}
-});
-Object.defineProperty(donutMultiplier, "increment", {
-  get : function () {this.donutMultiplierCount++;}
-});
-Object.defineProperty(donutMultiplier, "add", {
-  set : function (value) {this.donutMultiplierCount += value;}
-});
-Object.defineProperty(donutMultiplier, "subtract", {
-  set: function (value) {this.donutMultiplierCount -= value;}
-});
-
-
-
-*/
