@@ -17,13 +17,13 @@ function reset() {
   updateMultiplierInfo()
 }
 
-let donuts = 0;
+let donuts = Math.ceil(0);
 
 let donutCount = document.getElementById("counter");
 document.getElementById("alert").addEventListener("click", makeDonut);
 
 let refreshDonutCount = function() {
-donutCount.innerHTML = donuts.toFixed(1);
+donutCount.innerHTML = Math.ceil(donuts);
 }
 
 function makeDonut() {
@@ -36,26 +36,26 @@ function makeDonut() {
   refreshDonutCount()
 }
 
-let autoClicker = 0;
-let oldCost = 100;
+let autoClicker = Math.ceil(0);
+let oldCost = Math.ceil(100);
 
 document.getElementById("autoClick").addEventListener("click", activateAutoClicker);
 let clickerCount = document.getElementById("autoClickerCount");
 let clickerCost = document.getElementById("autoClickerCost");
-clickerCost.innerHTML = oldCost;
-clickerCount.innerHTML = autoClicker;
+clickerCost.innerHTML = Math.ceil(oldCost);
+clickerCount.innerHTML = Math.ceil(autoClicker);
 
 function updateAutoClickInfo() {
   refreshDonutCount();  
-  clickerCount.innerHTML = autoClicker;
-  clickerCost.innerHTML = oldCost.toFixed(1);
+  clickerCount.innerHTML = Math.ceil(autoClicker);
+  clickerCost.innerHTML = Math.ceil(oldCost);
 }
 
 function activateAutoClicker() {
   if (donuts >= oldCost) {
     donuts -= oldCost;
     autoClicker +=1;
-    oldCost = Math.floor(oldCost * 1.1);
+    oldCost = Math.ceil(oldCost * 1.1);
   } else {
     console.log("you don't have enough donuts!");
   }
@@ -82,8 +82,8 @@ donutMultiplierCount.innerHTML = donutMultiplier;
 multiplierCost.innerHTML = donutMultiplierCost;
 
 function updateMultiplierInfo() {
-  donutMultiplierCount.innerHTML = donutMultiplier;
-  multiplierCost.innerHTML = donutMultiplierCost.toFixed(1);
+  donutMultiplierCount.innerHTML = Math.ceil(donutMultiplier);
+  multiplierCost.innerHTML = Math.ceil(donutMultiplierCost);
   refreshDonutCount()
 }
 
